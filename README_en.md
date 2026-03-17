@@ -1,81 +1,52 @@
-English | [简体中文](README.md)
+<div align="center">
+  English | <a href="./README.md">简体中文</a>
+</div>
 
-# Bookshelf
+# Bookshelf (Personal Book Management Backend Service)
 
+![Bun](https://img.shields.io/badge/Bun-1.1-000000?style=flat-square&logo=bun)
+![Hono](https://img.shields.io/badge/Hono-4.11-E36002?style=flat-square&logo=hono)
+![Drizzle](https://img.shields.io/badge/Drizzle_ORM-0.45-C5F74F?style=flat-square&logo=drizzle)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql)
 
-`Bookshelf` is a full-stack bookshelf management app built to combine a practical API backend with a polished browsing experience. It is designed as a portfolio-friendly project for managing, importing, searching, and presenting books.
+This project is a high-performance book management system built with a modern backend stack. Leveraging the ultra-fast execution of the **Bun** runtime and the lightweight routing engine of the **Hono** framework, it provides a strongly-typed and extensible RESTful API solution for personal digital book collections.
 
-## Features
+## Core Design Standards
 
-- Create, update, and delete books
-- Search by title or author
-- Filter by genre
-- Paginated browsing
-- Import data from Google Books
-- Visual bookshelf presentation with motion
-- Responsive UI
+### 1. Maximum Execution Efficiency
+Deeply integrates Bun's native APIs for I/O processing, offering significant advantages in cold start speeds and request latency compared to traditional Node.js environments. Paired with Hono's minimalist routing design, it ensures high throughput with a low resource footprint.
 
-## Tech Stack
+### 2. Full-stack Strong Typing
+- **Drizzle ORM**: Employs a strongly-typed SQL query builder, eliminating runtime query errors and supporting zero-downtime database schema synchronization.
+- **Input Validation**: Integrates Zod for rigorous input schema validation, ensuring that invalid data is blocked at the logic entry point.
 
-Backend:
+### 3. Standardized RESTful Practices
+The interface design follows resource-oriented principles, achieving high decoupling of business logic through modular routing distribution.
 
-- `Bun`
-- `Hono`
-- `SQLite`
-- `Drizzle ORM`
-- `Zod`
+## API Matrix
 
-Frontend:
+| Method | Path | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/books` | Batch retrieval of book lists with multi-dimensional filtering. |
+| `POST` | `/api/books` | Archives a new book entry. |
+| `GET` | `/api/books/:id` | Retrieves detailed metadata for a specific book. |
+| `PUT` | `/api/books/:id` | Corrects or updates existing book information. |
+| `DELETE` | `/api/books/:id` | Physically removes a specific book record. |
 
-- `Next.js 16`
-- `React 19`
-- `Tailwind CSS 4`
-- `Zustand`
-- `TanStack React Query`
-- `TanStack Virtual`
-- `Framer Motion`
-
-## Repository Structure
+## Project Structure
 
 ```text
 bookshelf/
-├── backend/
-│   ├── src/
-│   │   ├── db/
-│   │   ├── routes/
-│   │   └── index.ts
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   └── app/
-│   └── package.json
-├── README.md
-└── README.en.md
+└── backend/
+    ├── src/
+    │   ├── db/         # Standard DB schema definitions and indexing strategies
+    │   ├── routes/     # Business module implementation based on Hono routing
+    │   ├── index.ts    # Startup entry, global middleware chain, and error handling
+    │   └── seed.ts     # Data seeding scripts
+    ├── package.json    # Dependency management
+    └── tsconfig.json   # TypeScript compiler configuration
 ```
-
-## Quick Start
-
-### Backend
-
-```bash
-cd backend
-bun install
-bun run seed
-bun run dev
-```
-
-Runs on `http://localhost:3000`
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Runs on `http://localhost:3001`
 
 ## License
-
-This project is licensed under the MIT License. See [LICENSE](./LICENSE).
+This project is licensed under the MIT License.
