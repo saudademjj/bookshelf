@@ -1,6 +1,7 @@
+English | [简体中文](README.md)
+
 # Bookshelf
 
-English | [简体中文](README.md)
 
 `Bookshelf` is a full-stack bookshelf management app built to combine a practical API backend with a polished browsing experience. It is designed as a portfolio-friendly project for managing, importing, searching, and presenting books.
 
