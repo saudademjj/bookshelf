@@ -1,87 +1,100 @@
-# bookshelf
+# Bookshelf
 
-A full-stack bookshelf management application built with modern web technologies.
+[English README](./README.en.md)
 
-## Tech Stack
+`Bookshelf` 是一个前后端分离的书架管理应用，目标是用现代 Web 技术实现一本“可搜索、可导入、可展示”的个人书库系统。项目同时兼顾后台 API 设计与前端浏览体验，适合作为全栈作品集项目。
 
-### Backend
-- **Runtime**: Bun
-- **Framework**: Hono
-- **Database**: SQLite with Drizzle ORM
-- **Validation**: Zod
+## 功能概览
 
-### Frontend
-- **Framework**: Next.js 16
-- **UI Library**: React 19
-- **Styling**: Tailwind CSS 4
-- **State Management**: Zustand
-- **Data Fetching**: TanStack React Query
-- **Animations**: Framer Motion
-- **Virtual List**: TanStack Virtual
+- 图书的增删改查
+- 按书名或作者搜索
+- 按分类筛选
+- 分页浏览
+- 从 Google Books 导入图书信息
+- 书架式视觉展示与动效
+- 响应式页面布局
 
-## Project Structure
+## 技术栈
 
-```
+后端：
+
+- `Bun`
+- `Hono`
+- `SQLite`
+- `Drizzle ORM`
+- `Zod`
+
+前端：
+
+- `Next.js 16`
+- `React 19`
+- `Tailwind CSS 4`
+- `Zustand`
+- `TanStack React Query`
+- `TanStack Virtual`
+- `Framer Motion`
+
+## 仓库结构
+
+```text
 bookshelf/
-├── backend/          # Backend API server
+├── backend/
 │   ├── src/
-│   │   ├── db/       # Database schema and config
-│   │   ├── routes/   # API routes
-│   │   └── index.ts  # Server entry
+│   │   ├── db/
+│   │   ├── routes/
+│   │   └── index.ts
 │   └── package.json
-└── frontend/         # Next.js web app
-    ├── src/
-    │   └── app/      # Next.js App Router
-    └── package.json
+├── frontend/
+│   ├── src/
+│   │   └── app/
+│   └── package.json
+├── README.md
+└── README.en.md
 ```
 
-## Getting Started
+## 快速开始
 
-### Prerequisites
-- Bun (for backend)
-- Node.js 18+ (for frontend)
-
-### Backend Setup
+### 后端
 
 ```bash
 cd backend
 bun install
-bun run seed     # Seed initial data
-bun run dev      # Start development server
+bun run seed
+bun run dev
 ```
 
-The backend server runs on `http://localhost:3000`
+默认运行在 `http://localhost:3000`
 
-### Frontend Setup
+### 前端
 
 ```bash
 cd frontend
 npm install
-npm run dev      # Start development server
+npm run dev
 ```
 
-The frontend runs on `http://localhost:3001`
+默认运行在 `http://localhost:3001`
 
-## API Endpoints
+## API 概览
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/books` | List books (supports pagination, search, genre filter) |
-| GET | `/api/books/:id` | Get single book |
-| POST | `/api/books` | Create new book |
-| PUT | `/api/books/:id` | Update book |
-| DELETE | `/api/books/:id` | Delete book |
-| GET | `/api/books/genres/list` | Get all genres |
-| GET | `/api/books/search-external?q=...` | Search Google Books |
-| POST | `/api/books/import` | Import book from Google Books |
+| 方法 | 路径 | 说明 |
+| --- | --- | --- |
+| GET | `/api/books` | 图书列表，支持分页、搜索和分类筛选 |
+| GET | `/api/books/:id` | 单本图书详情 |
+| POST | `/api/books` | 创建图书 |
+| PUT | `/api/books/:id` | 更新图书 |
+| DELETE | `/api/books/:id` | 删除图书 |
+| GET | `/api/books/genres/list` | 获取分类列表 |
+| GET | `/api/books/search-external?q=...` | 搜索 Google Books |
+| POST | `/api/books/import` | 导入外部图书数据 |
 
-## Features
+## 适合继续扩展的方向
 
-- 📚 CRUD operations for books
-- 🔍 Search books by title or author
-- 🎨 Visual bookshelf with customizable book covers
-- 📥 Import books from Google Books API
-- 📂 Filter books by genre
-- 📖 Pagination support
-- 🎭 Beautiful animations with Framer Motion
-- 📱 Responsive design
+- 用户系统与个人书架
+- 借阅或阅读状态跟踪
+- 评分、笔记和标签系统
+- 部署脚本与 CI/CD
+
+## 许可证
+
+本仓库采用 MIT License，详见 [LICENSE](./LICENSE)。
