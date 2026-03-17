@@ -10,43 +10,53 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql)
 
-This project is a high-performance book management system built with a modern backend stack. Leveraging the ultra-fast execution of the **Bun** runtime and the lightweight routing engine of the **Hono** framework, it provides a strongly-typed and extensible RESTful API solution for personal digital book collections.
+Bookshelf is a high-performance, strongly-typed book management system built with a modern backend stack. Designed for efficient governance of personal digital book collections, it leverages the low-level optimizations of the **Bun** runtime and the high-speed routing engine of the **Hono** framework to provide an industrial-grade RESTful API service.
 
-## Core Design Standards
+## ⚙️ Core Technical Architecture Deep Dive
 
-### 1. Maximum Execution Efficiency
-Deeply integrates Bun's native APIs for I/O processing, offering significant advantages in cold start speeds and request latency compared to traditional Node.js environments. Paired with Hono's minimalist routing design, it ensures high throughput with a low resource footprint.
+### 1. Maximum I/O Performance & Runtime Optimization
+- **Bun Runtime**: Deeply integrates with Bun's native I/O interfaces. Compared to Node.js, Bun's JavaScript Core (JSC) engine offers ~4x faster cold starts and provides native, highly-optimized SQLite/PostgreSQL connectors.
+- **Hono Routing Engine**: Built on the **RegExpRouter** matching algorithm, Hono is optimized for edge computing environments, maintaining near-constant time (O(1)) route lookup latency even with complex REST trees.
 
-### 2. Full-stack Strong Typing
-- **Drizzle ORM**: Employs a strongly-typed SQL query builder, eliminating runtime query errors and supporting zero-downtime database schema synchronization.
-- **Input Validation**: Integrates Zod for rigorous input schema validation, ensuring that invalid data is blocked at the logic entry point.
+### 2. Strongly-Typed Persistence Layer (Type-safe DAL)
+- **Drizzle ORM**: Eschews traditional heavy ORMs in favor of Drizzle's zero-abstraction overhead. It allows developers to write SQL-style queries while automatically inferring TypeScript interfaces perfectly aligned with database fields.
+- **Zero-downtime Migrations**: Coupled with Drizzle Kit, the system supports automated schema diffing and migration script generation, ensuring controlled evolution of the database schema.
 
-### 3. Standardized RESTful Practices
-The interface design follows resource-oriented principles, achieving high decoupling of business logic through modular routing distribution.
+### 3. Data Contract & Runtime Validation
+- **Zod-Driven Schema Validation**: All API requests (Payload/Query) are filtered through strict Zod-defined schemas. Requests violating the data contract are rejected at the middleware level, preventing logic failures due to malformed data.
 
-## API Matrix
-
-| Method | Path | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/books` | Batch retrieval of book lists with multi-dimensional filtering. |
-| `POST` | `/api/books` | Archives a new book entry. |
-| `GET` | `/api/books/:id` | Retrieves detailed metadata for a specific book. |
-| `PUT` | `/api/books/:id` | Corrects or updates existing book information. |
-| `DELETE` | `/api/books/:id` | Physically removes a specific book record. |
-
-## Project Structure
+## 📂 Engineering Standards
 
 ```text
 bookshelf/
 └── backend/
     ├── src/
-    │   ├── db/         # Standard DB schema definitions and indexing strategies
-    │   ├── routes/     # Business module implementation based on Hono routing
-    │   ├── index.ts    # Startup entry, global middleware chain, and error handling
-    │   └── seed.ts     # Data seeding scripts
-    ├── package.json    # Dependency management
-    └── tsconfig.json   # TypeScript compiler configuration
+    │   ├── db/         # Schema definitions, connection pool singleton, and indexing
+    │   ├── routes/     # Business logic implementations, organized modularly (e.g., books.ts)
+    │   ├── index.ts    # Global entry point, Hono instance management, and middleware chain
+    │   ├── middleware/ # Custom middleware for auth, request tracing, and CORS
+    │   └── seed.ts     # Data seeding scripts for stress testing and demos
+    ├── package.json    # Bun scripts and dependency manifest
+    └── tsconfig.json   # TypeScript compiler policies in strict mode
+```
+
+## 🚀 Deployment Guide
+
+### 1. Requirements
+- [Bun 1.1+](https://bun.sh/) is strictly required.
+
+### 2. Launch Steps
+```bash
+cd backend
+bun install
+
+# Configure .env (DATABASE_URL)
+# Sync database schema
+bun run db:push
+
+# Launch development server
+bun run dev
 ```
 
 ## License
-This project is licensed under the MIT License.
+MIT License
