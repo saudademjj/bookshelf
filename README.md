@@ -1,101 +1,78 @@
-[English](README_en.md) | 简体中文
+# Bookshelf (个人图书管理系统后端服务)
 
-# Bookshelf
+[![Bun](https://img.shields.io/badge/Bun-1.1-black?logo=bun)](https://bun.sh/)
+[![Hono](https://img.shields.io/badge/Hono-4.11-orange?logo=hono)](https://hono.dev/)
+[![Drizzle](https://img.shields.io/badge/Drizzle-ORM-C5F74F?logo=drizzle)](https://orm.drizzle.team/)
 
+Bookshelf 是一个高性能的个人图书管理系统后端服务。项目基于现代化的 Bun 运行时与 Hono 框架构建，旨在通过精简的架构设计实现对个人数字化藏书的高效管理。
 
-`Bookshelf` 是一个前后端分离的书架管理应用，目标是用现代 Web 技术实现一本“可搜索、可导入、可展示”的个人书库系统。项目同时兼顾后台 API 设计与前端浏览体验，适合作为全栈作品集项目。
+## 核心设计
 
-## 功能概览
-
-- 图书的增删改查
-- 按书名或作者搜索
-- 按分类筛选
-- 分页浏览
-- 从 Google Books 导入图书信息
-- 书架式视觉展示与动效
-- 响应式页面布局
+- 极致运行效率: 深度集成 Bun 原生 API 与 Hono 路由引擎，确保在高并发环境下仍能保持低延迟响应。
+- 严谨类型安全: 全链路采用 TypeScript 编写，结合 Zod 实现严格的入参校验与响应契约维护。
+- 现代化持久层架构: 利用 Drizzle ORM 进行数据库操作，通过强类型模型关联实现零成本的 Schema 同步。
+- 规范化 API 标准: 内置 CORS 安全配置，采用分层路由架构设计，实现高度解耦的 CRUD 业务逻辑。
 
 ## 技术栈
 
-后端：
+- 运行时 (Runtime): Bun 1.1+
+- API 框架: Hono
+- 数据库 (ORM): Drizzle ORM
+- 逻辑校验: Zod
+- 开发支持: Drizzle Kit (用于结构化数据库迁移)
 
-- `Bun`
-- `Hono`
-- `SQLite`
-- `Drizzle ORM`
-- `Zod`
-
-前端：
-
-- `Next.js 16`
-- `React 19`
-- `Tailwind CSS 4`
-- `Zustand`
-- `TanStack React Query`
-- `TanStack Virtual`
-- `Framer Motion`
-
-## 仓库结构
+## 项目结构
 
 ```text
-bookshelf/
-├── backend/
-│   ├── src/
-│   │   ├── db/
-│   │   ├── routes/
-│   │   └── index.ts
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   └── app/
-│   └── package.json
-├── README.md
-└── README.en.md
+.
+└── backend
+    ├── src
+    │   ├── db          # 数据库连接池与 Schema 标准定义
+    │   ├── routes      # 模块化业务路由逻辑实现
+    │   ├── index.ts    # 全局中间件配置与程序入口
+    │   └── seed.ts     # 初始化测试数据播种脚本
+    ├── package.json
+    └── tsconfig.json
 ```
 
-## 快速开始
+## 快速启动
 
-### 后端
+### 1. 前置要求
+确保本地已安装 Bun 1.1 或更高版本。
 
+### 2. 依赖安装
 ```bash
-cd backend
-bun install
-bun run seed
+cd backend && bun install
+```
+
+### 3. 服务器启动
+开发模式 (支持热重载):
+```bash
 bun run dev
 ```
-
-默认运行在 `http://localhost:3000`
-
-### 前端
-
+生产模式:
 ```bash
-cd frontend
-npm install
-npm run dev
+bun run start
 ```
 
-默认运行在 `http://localhost:3001`
+## API 接口概览
 
-## API 概览
+| 请求方法 | 端点路径 | 业务功能描述 |
+| :--- | :--- | :--- |
+| `GET` | `/health` | 服务节点健康监测 |
+| `GET` | `/api/books` | 批量检索图书列表 |
+| `POST` | `/api/books` | 新增图书归档记录 |
+| `GET` | `/api/books/:id` | 检索指定图书详情 |
+| `PUT` | `/api/books/:id` | 更新既有图书元数据 |
+| `DELETE` | `/api/books/:id` | 移除特定图书条目 |
 
-| 方法 | 路径 | 说明 |
-| --- | --- | --- |
-| GET | `/api/books` | 图书列表，支持分页、搜索和分类筛选 |
-| GET | `/api/books/:id` | 单本图书详情 |
-| POST | `/api/books` | 创建图书 |
-| PUT | `/api/books/:id` | 更新图书 |
-| DELETE | `/api/books/:id` | 删除图书 |
-| GET | `/api/books/genres/list` | 获取分类列表 |
-| GET | `/api/books/search-external?q=...` | 搜索 Google Books |
-| POST | `/api/books/import` | 导入外部图书数据 |
-
-## 适合继续扩展的方向
-
-- 用户系统与个人书架
-- 借阅或阅读状态跟踪
-- 评分、笔记和标签系统
-- 部署脚本与 CI/CD
+## 未来路线
+- 增加用户鉴权体系，支持多租户独立书架管理。
+- 接入 Open Library 或 Douban API 自动化补全书籍元数据。
+- 引入细粒度分类标签与全文搜索索引。
 
 ## 许可证
+本项目采用 MIT License 协议。
 
-本仓库采用 MIT License，详见 [LICENSE](./LICENSE)。
+---
+Developed by [saudademjj](https://github.com/saudademjj)
