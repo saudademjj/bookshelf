@@ -1,6 +1,6 @@
 # Bookshelf
 
-<p align="right">中文 | <a href="https://github.com/saudademjj/bookshelf/tree/en/readme">English</a></p>
+[English](README_en.md) | 简体中文
 
 `Bookshelf` 是一个前后端分离的书架管理应用，目标是用现代 Web 技术实现一本“可搜索、可导入、可展示”的个人书库系统。项目同时兼顾后台 API 设计与前端浏览体验，适合作为全栈作品集项目。
 
