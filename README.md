@@ -1,8 +1,6 @@
-<a id="readme-top"></a>
-
 # Bookshelf
 
-<p align="right">中文 | <a href="#english-version">English</a></p>
+<p align="right">中文 | <a href="https://github.com/saudademjj/bookshelf/tree/codex/readme-en">English</a></p>
 
 `Bookshelf` 是一个前后端分离的书架管理应用，目标是用现代 Web 技术实现一本“可搜索、可导入、可展示”的个人书库系统。项目同时兼顾后台 API 设计与前端浏览体验，适合作为全栈作品集项目。
 
@@ -100,86 +98,3 @@ npm run dev
 ## 许可证
 
 本仓库采用 MIT License，详见 [LICENSE](./LICENSE)。
-
----
-
-## English Version
-
-<p align="right"><a href="#readme-top">中文</a> | English</p>
-
-`Bookshelf` is a full-stack bookshelf management app built to combine a practical API backend with a polished browsing experience. It is designed as a portfolio-friendly project for managing, importing, searching, and presenting books.
-
-## Features
-
-- Create, update, and delete books
-- Search by title or author
-- Filter by genre
-- Paginated browsing
-- Import data from Google Books
-- Visual bookshelf presentation with motion
-- Responsive UI
-
-## Tech Stack
-
-Backend:
-
-- `Bun`
-- `Hono`
-- `SQLite`
-- `Drizzle ORM`
-- `Zod`
-
-Frontend:
-
-- `Next.js 16`
-- `React 19`
-- `Tailwind CSS 4`
-- `Zustand`
-- `TanStack React Query`
-- `TanStack Virtual`
-- `Framer Motion`
-
-## Repository Structure
-
-```text
-bookshelf/
-├── backend/
-│   ├── src/
-│   │   ├── db/
-│   │   ├── routes/
-│   │   └── index.ts
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   └── app/
-│   └── package.json
-├── README.md
-└── README.en.md
-```
-
-## Quick Start
-
-### Backend
-
-```bash
-cd backend
-bun install
-bun run seed
-bun run dev
-```
-
-Runs on `http://localhost:3000`
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Runs on `http://localhost:3001`
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](./LICENSE).
