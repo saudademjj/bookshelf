@@ -1,10 +1,8 @@
+<a id="readme-top"></a>
+
 # Bookshelf
 
-**Language:** [Chinese](#chinese-version) | [English](#english-version)
-
-## Chinese Version
-
-**Language:** Chinese | [English](#english-version)
+<p align="right">中文 | <a href="#english-version">English</a></p>
 
 `Bookshelf` 是一个前后端分离的书架管理应用，目标是用现代 Web 技术实现一本“可搜索、可导入、可展示”的个人书库系统。项目同时兼顾后台 API 设计与前端浏览体验，适合作为全栈作品集项目。
 
@@ -107,7 +105,7 @@ npm run dev
 
 ## English Version
 
-**Language:** [Chinese](#chinese-version) | English
+<p align="right"><a href="#readme-top">中文</a> | English</p>
 
 `Bookshelf` is a full-stack bookshelf management app built to combine a practical API backend with a polished browsing experience. It is designed as a portfolio-friendly project for managing, importing, searching, and presenting books.
 
