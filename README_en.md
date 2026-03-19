@@ -2,61 +2,148 @@
   English | <a href="./README.md">简体中文</a>
 </div>
 
-# Bookshelf (Personal Book Management Backend Service)
+# Bookshelf -- High-Performance Personal Book Management System
 
-![Bun](https://img.shields.io/badge/Bun-1.1-000000?style=flat-square&logo=bun)
+![Bun](https://img.shields.io/badge/Bun-Runtime-F9F1E1?style=flat-square&logo=bun)
 ![Hono](https://img.shields.io/badge/Hono-4.11-E36002?style=flat-square&logo=hono)
-![Drizzle](https://img.shields.io/badge/Drizzle_ORM-0.45-C5F74F?style=flat-square&logo=drizzle)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![Drizzle](https://img.shields.io/badge/Drizzle_ORM-0.45-C5F74F?style=flat-square)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite)
+![Zod](https://img.shields.io/badge/Zod-4-3E67B1?style=flat-square)
 
-Bookshelf is a high-performance, strongly-typed book management system built with a modern backend stack. Designed for efficient governance of personal digital book collections, it leverages the low-level optimizations of the **Bun** runtime and the high-speed routing engine of the **Hono** framework to provide an industrial-grade RESTful API service.
+A high-performance personal book management system built with Bun + Hono + Drizzle ORM. The project adopts a modern TypeScript full-stack architecture with SQLite as an embedded database and Zod for runtime data validation, providing a complete RESTful CRUD API for book management. The overall design pursues extreme lightweight and high performance, serving as a practical example of full-stack development in the Bun ecosystem.
 
-## ⚙️ Core Technical Architecture Deep Dive
+## Core Features
 
-### 1. Maximum I/O Performance & Runtime Optimization
-- **Bun Runtime**: Deeply integrates with Bun's native I/O interfaces. Compared to Node.js, Bun's JavaScript Core (JSC) engine offers ~4x faster cold starts and provides native, highly-optimized SQLite/PostgreSQL connectors.
-- **Hono Routing Engine**: Built on the **RegExpRouter** matching algorithm, Hono is optimized for edge computing environments, maintaining near-constant time (O(1)) route lookup latency even with complex REST trees.
+### Book Management API
+- Complete RESTful CRUD endpoints: create, read, update, and delete books
+- Search by title, author, ISBN, and other fields
+- Paginated queries with sorting
+- Zod Schema-driven request validation ensuring data integrity
 
-### 2. Strongly-Typed Persistence Layer (Type-safe DAL)
-- **Drizzle ORM**: Eschews traditional heavy ORMs in favor of Drizzle's zero-abstraction overhead. It allows developers to write SQL-style queries while automatically inferring TypeScript interfaces perfectly aligned with database fields.
-- **Zero-downtime Migrations**: Coupled with Drizzle Kit, the system supports automated schema diffing and migration script generation, ensuring controlled evolution of the database schema.
+### Data Persistence
+- SQLite embedded database, zero-configuration out of the box
+- Drizzle ORM provides type-safe query building and migration management
+- Built-in seed data script for quick demo data population
 
-### 3. Data Contract & Runtime Validation
-- **Zod-Driven Schema Validation**: All API requests (Payload/Query) are filtered through strict Zod-defined schemas. Requests violating the data contract are rejected at the middleware level, preventing logic failures due to malformed data.
+### Developer Experience
+- Bun native hot reload (`bun --hot`), instant code change reflection
+- End-to-end TypeScript type inference from schema to API response
+- Lightweight dependencies, extremely fast cold starts
 
-## 📂 Engineering Standards
+## Technical Architecture
+
+### Runtime & Framework
+
+- Bun: High-performance JavaScript/TypeScript runtime with built-in bundler, test runner, and package manager
+- Hono 4.11: Ultra-lightweight web framework with excellent routing performance and rich middleware ecosystem
+- TypeScript 5: End-to-end static type checking
+
+### Data Layer
+
+- Drizzle ORM 0.45: Type-safe SQL query builder
+  - Declarative schema definitions
+  - Automatic migration generation
+  - Zero-runtime-overhead query building
+- SQLite: Embedded relational database, single-file storage, no standalone database service required
+- Zod 4: Runtime data validation and type inference
+
+### Architecture Pattern
+
+- Layered Architecture: Routes -> Data Layer (DB/Schema) -> Storage (SQLite)
+- Separation of Concerns: Route definitions, data models, and database connections are independently organized
+- Validation-first: All API entries pass through Zod Schema validation before reaching business logic
+
+## Directory Structure
 
 ```text
 bookshelf/
-└── backend/
-    ├── src/
-    │   ├── db/         # Schema definitions, connection pool singleton, and indexing
-    │   ├── routes/     # Business logic implementations, organized modularly (e.g., books.ts)
-    │   ├── index.ts    # Global entry point, Hono instance management, and middleware chain
-    │   ├── middleware/ # Custom middleware for auth, request tracing, and CORS
-    │   └── seed.ts     # Data seeding scripts for stress testing and demos
-    ├── package.json    # Bun scripts and dependency manifest
-    └── tsconfig.json   # TypeScript compiler policies in strict mode
+├── backend/
+│   ├── src/
+│   │   ├── db/
+│   │   │   ├── index.ts       # Database connection initialization
+│   │   │   └── schema.ts      # Drizzle Schema definitions (book table structure)
+│   │   ├── routes/
+│   │   │   └── books.ts       # Book CRUD API routes
+│   │   ├── index.ts           # App entry point, Hono instance and middleware registration
+│   │   └── seed.ts            # Seed data population script
+│   ├── bookshelf.db           # SQLite database file
+│   ├── package.json           # Dependencies and scripts
+│   └── tsconfig.json          # TypeScript configuration
+├── frontend/                   # Frontend application (in development)
+├── LICENSE
+└── README.md
 ```
 
-## 🚀 Deployment Guide
+## Quick Start
 
-### 1. Requirements
-- [Bun 1.1+](https://bun.sh/) is strictly required.
+### Prerequisites
 
-### 2. Launch Steps
+- Bun >= 1.0 ([Installation Guide](https://bun.sh))
+
+### 1. Clone and Install
+
 ```bash
-cd backend
+git clone https://github.com/saudademjj/bookshelf.git
+cd bookshelf/backend
 bun install
+```
 
-# Configure .env (DATABASE_URL)
-# Sync database schema
-bun run db:push
+### 2. Initialize Database
 
-# Launch development server
+```bash
+bun run seed
+```
+
+This command creates the SQLite database file and populates it with sample book data.
+
+### 3. Start Development Server
+
+```bash
 bun run dev
 ```
 
+The API listens on `http://localhost:3000` by default.
+
+### Available Commands
+
+```bash
+bun run dev      # Start dev server (hot reload mode)
+bun run start    # Start production server
+bun run seed     # Populate seed data
+```
+
+## API Endpoints
+
+### Book Resource
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/books` | List all books |
+| GET | `/api/books/:id` | Get book details |
+| POST | `/api/books` | Create a new book |
+| PUT | `/api/books/:id` | Update book info |
+| DELETE | `/api/books/:id` | Delete a book |
+
+### Request Examples
+
+```bash
+# Get all books
+curl http://localhost:3000/api/books
+
+# Create a new book
+curl -X POST http://localhost:3000/api/books \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Computer Systems: A Programmer Perspective", "author": "Randal E. Bryant"}'
+```
+
+## Technical Highlights
+
+- Bun Native Runtime: Compared to Node.js, Bun offers significant advantages in startup speed, package installation speed, and HTTP throughput
+- Zero-config Database: SQLite single-file storage requires no standalone database service installation or configuration — clone and run
+- Type-safe Closed Loop: Drizzle Schema -> Zod validation -> Hono routes, TypeScript types flow from database definitions all the way to API responses
+- Minimal Dependencies: Only 3 core dependencies (Hono + Drizzle + Zod), no redundant abstraction layers
+
 ## License
+
 MIT License
